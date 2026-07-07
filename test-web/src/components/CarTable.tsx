@@ -22,12 +22,22 @@ function CarTable({ cars, loading, onAdd, onEdit, onDelete }: Props) {
     {
       title: "ยี่ห้อ",
       dataIndex: "brand",
-      key: "brand"
+      key: "brand",
+      filters: Array.from(new Set(cars.map((car) => car.brand))).map((brand) => ({
+        text: brand,
+        value: brand
+      })),
+      onFilter: (value, car) => car.brand === value
     },
     {
       title: "รุ่น",
       dataIndex: "model",
-      key: "model"
+      key: "model",
+      filters: Array.from(new Set(cars.map((car) => car.model))).map((model) => ({
+        text: model,
+        value: model
+      })),
+      onFilter: (value, car) => car.model === value
     },
     {
       title: "หมายเหตุ",

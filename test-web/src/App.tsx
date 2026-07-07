@@ -98,9 +98,9 @@ function App() {
           collapsedWidth={0}
         >
           <div className="sidebar-brand">
-            <div className="brand-mark">HC</div>
+            <div className="brand-mark">c</div>
             <div>
-              <Typography.Text strong>Hopcar</Typography.Text>
+              <Typography.Text strong>car management</Typography.Text>
               <Typography.Text type="secondary" className="brand-subtitle">
                 Vehicle records
               </Typography.Text>
@@ -124,27 +124,23 @@ function App() {
 
         <Layout>
           <Header className="navbar">
-            <div>
-              <Typography.Text strong>จัดการรถบริษัท</Typography.Text>
-              <Typography.Text type="secondary" className="navbar-subtitle">
-                จัดการข้อมูลรถยนต์ของบริษัท
-              </Typography.Text>
-            </div>
-
-            <Button type="primary" icon={<PlusOutlined />} onClick={openAddModal}>
-              เพิ่มรถ
-            </Button>
+            <Typography.Title level={5} style={{ margin: 0, color: '#1e293b', fontWeight: 600 }}>
+              ระบบจัดการยานพาหนะ
+            </Typography.Title>
           </Header>
 
           <Content className="main-content">
             <div className="page">
               <section className="page-title-row">
                 <div>
-                  <Typography.Title level={2}>รายการรถบริษัท</Typography.Title>
-                  <Typography.Text type="secondary">
-                    ตรวจสอบ เพิ่ม แก้ไข และลบข้อมูลรถที่ถูกบันทึกไว้ในระบบ
+                  <Typography.Title level={3} style={{ margin: 0 }}>รายการรถยนต์</Typography.Title>
+                  <Typography.Text type="secondary" style={{ marginTop: 4, display: 'block' }}>
+                    ข้อมูลรถยนต์ทั้งหมดของบริษัท
                   </Typography.Text>
                 </div>
+                <Button type="primary" icon={<PlusOutlined />} onClick={openAddModal}>
+                  เพิ่มรถใหม่
+                </Button>
               </section>
 
               <section className="content-panel">
