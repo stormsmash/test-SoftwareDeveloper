@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import carRoutes from "./routes/car.routes";
 

@@ -49,7 +49,8 @@ export async function listCars(_req: Request, res: Response) {
   try {
     const cars = await getCars();
     res.json(cars);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Failed to get cars" });
   }
 }
@@ -67,7 +68,8 @@ export async function showCar(req: Request, res: Response) {
     }
 
     res.json(car);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Failed to get car" });
   }
 }
@@ -83,7 +85,8 @@ export async function addCar(req: Request, res: Response) {
   try {
     const car = await createCar(getCarData(req.body));
     res.status(201).json(car);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Failed to create car" });
   }
 }
@@ -109,7 +112,8 @@ export async function editCar(req: Request, res: Response) {
 
     const updatedCar = await updateCar(id, getCarData(req.body));
     res.json(updatedCar);
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Failed to update car" });
   }
 }
@@ -128,7 +132,8 @@ export async function removeCar(req: Request, res: Response) {
 
     await deleteCar(id);
     res.status(204).send();
-  } catch {
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Failed to delete car" });
   }
 }
