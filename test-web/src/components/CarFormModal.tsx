@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Form, Input, Modal, message } from "antd";
+import { Form, Input, Modal, Space, Typography, message } from "antd";
 import type { Car, CarFormValues } from "../types/car";
 
 type Props = {
@@ -77,8 +77,17 @@ function CarFormModal({ open, carId, onClose, onSaved }: Props) {
 
   return (
     <Modal
-      title={isEditMode ? "แก้ไขรถ" : "เพิ่มรถ"}
+      title={
+        <Space direction="vertical" size={0}>
+          <Typography.Text strong>{isEditMode ? "แก้ไขข้อมูลรถ" : "เพิ่มข้อมูลรถ"}</Typography.Text>
+          <Typography.Text type="secondary" className="modal-subtitle">
+            กรอกข้อมูลรถให้ครบถ้วนก่อนบันทึก
+          </Typography.Text>
+        </Space>
+      }
       open={open}
+      width={560}
+      centered
       okText="บันทึก"
       cancelText="ยกเลิก"
       confirmLoading={saving}
@@ -94,35 +103,37 @@ function CarFormModal({ open, carId, onClose, onSaved }: Props) {
         form={form}
         layout="vertical"
         className="car-form"
+        requiredMark={false}
+        autoComplete="off"
         disabled={loading || saving}
         onFinish={handleSubmit}
       >
         <Form.Item
           label="ป้ายทะเบียน"
           name="licensePlate"
-          rules={[{ required: true, message: "กรุณาใส่ป้ายทะเบียน" }]}
+          rules={[{ required: true, whitespace: true, message: "กรุณาใส่ป้ายทะเบียน" }]}
         >
-          <Input />
+          <Input autoFocus placeholder="เช่น กท 1234" />
         </Form.Item>
 
         <Form.Item
           label="ยี่ห้อ"
           name="brand"
-          rules={[{ required: true, message: "กรุณาใส่ยี่ห้อ" }]}
+          rules={[{ required: true, whitespace: true, message: "กรุณาใส่ยี่ห้อ" }]}
         >
-          <Input />
+          <Input placeholder="เช่น Toyota" />
         </Form.Item>
 
         <Form.Item
           label="รุ่น"
           name="model"
-          rules={[{ required: true, message: "กรุณาใส่รุ่น" }]}
+          rules={[{ required: true, whitespace: true, message: "กรุณาใส่รุ่น" }]}
         >
-          <Input />
+          <Input placeholder="เช่น Yaris" />
         </Form.Item>
 
-        <Form.Item label="หมายเหตุ" name="note">
-          <Input.TextArea rows={3} />
+        <Form.Item label="หมายเหตุ (ถ้ามี)" name="note">
+          <Input.TextArea rows={3} placeholder="รายละเอียดเพิ่มเติมถ้ามี" />
         </Form.Item>
       </Form>
     </Modal>

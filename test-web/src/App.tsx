@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Button, ConfigProvider, Typography, message } from "antd";
+import { CarOutlined, PlusOutlined } from "@ant-design/icons";
+import { Button, ConfigProvider, Layout, Menu, Space, Typography, message } from "antd";
 import CarFormModal from "./components/CarFormModal";
 import CarTable from "./components/CarTable";
 import type { Car } from "./types/car";
+
+const { Header, Sider, Content } = Layout;
 
 function App() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -59,24 +62,118 @@ function App() {
   }, []);
 
   return (
-    <ConfigProvider>
-      <main className="page">
-        <div className="page-header">
-          <Typography.Title level={2}>รายการรถ</Typography.Title>
-          <Button type="primary" onClick={openAddModal}>
-            เพิ่มรถ
-          </Button>
-        </div>
+    <ConfigProvider
+      theme={{
+        token: {
+          borderRadius: 8,
+          colorBgLayout: "#f4f7fe",
+          colorBorderSecondary: "#e2e8f0",
+          fontFamily: "'Inter', 'Noto Sans Thai', sans-serif",
+          fontSize: 14,
+        },
+        components: {
+          Button: {
+            controlHeight: 40,
+            borderRadius: 8,
+            fontWeight: 500,
+          },
+          Modal: {
+            borderRadiusLG: 16,
+            paddingMD: 24,
+          },
+          Table: {
+            headerBg: "#f8fafc",
+            headerColor: "#475569",
+            rowHoverBg: "#f8fafc",
+          }
+        }
+      }}
+    >
+      <Layout className="app-layout" hasSider>
+        <Sider
+          className="sidebar"
+          width={248}
+          theme="dark"
+          breakpoint="lg"
+          collapsedWidth={0}
+        >
+          <div className="sidebar-brand">
+            <div className="brand-mark">HC</div>
+            <div>
+              <Typography.Text strong>Hopcar</Typography.Text>
+              <Typography.Text type="secondary" className="brand-subtitle">
+                Vehicle records
+              </Typography.Text>
+            </div>
+          </div>
 
-        <CarTable cars={cars} loading={loading} onEdit={openEditModal} onDelete={handleDelete} />
+          <Menu
+            className="sidebar-menu"
+            theme="dark"
+            mode="inline"
+            selectedKeys={["cars"]}
+            items={[
+              {
+                key: "cars",
+                icon: <CarOutlined />,
+                label: "รายการรถ"
+              }
+            ]}
+          />
+        </Sider>
 
-        <CarFormModal
-          open={modalOpen}
-          carId={editingCarId}
-          onClose={closeModal}
-          onSaved={handleSaved}
-        />
-      </main>
+        <Layout>
+          <Header className="navbar">
+            <div>
+              <Typography.Text strong>จัดการรถบริษัท</Typography.Text>
+              <Typography.Text type="secondary" className="navbar-subtitle">
+                จัดการข้อมูลรถยนต์ของบริษัท
+              </Typography.Text>
+            </div>
+
+            <Button type="primary" icon={<PlusOutlined />} onClick={openAddModal}>
+              เพิ่มรถ
+            </Button>
+          </Header>
+
+          <Content className="main-content">
+            <div className="page">
+              <section className="page-title-row">
+                <div>
+                  <Typography.Title level={2}>รายการรถบริษัท</Typography.Title>
+                  <Typography.Text type="secondary">
+                    ตรวจสอบ เพิ่ม แก้ไข และลบข้อมูลรถที่ถูกบันทึกไว้ในระบบ
+                  </Typography.Text>
+                </div>
+              </section>
+
+              <section className="content-panel">
+                <div className="table-toolbar">
+                  <Space direction="vertical" size={2}>
+                    <Typography.Text strong>ทะเบียนรถ</Typography.Text>
+                    <Typography.Text type="secondary">{cars.length} รายการ</Typography.Text>
+                  </Space>
+                </div>
+
+                <CarTable
+                  cars={cars}
+                  loading={loading}
+                  onAdd={openAddModal}
+                  onEdit={openEditModal}
+                  onDelete={handleDelete}
+                />
+              </section>
+            </div>
+          </Content>
+
+          <CarFormModal
+            open={modalOpen}
+            carId={editingCarId}
+            onClose={closeModal}
+            onSaved={handleSaved}
+          />
+        </Layout>
+      </Layout>
     </ConfigProvider>
   );
 }
