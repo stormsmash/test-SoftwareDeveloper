@@ -102,6 +102,7 @@ function CarTable({ cars, loading, onAdd, onEdit, onDelete }: Props) {
         )
       }}
       pagination={false}
+      scroll={{ x: 'max-content' }}
     />
   );
 }

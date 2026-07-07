@@ -103,12 +103,19 @@ body {
 .main-content {
   background: #f4f7fe;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
 }
 
 .page {
   width: 100%;
   margin: 0;
   padding: 32px 40px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
 }
 
 .page-title-row {
@@ -138,6 +145,9 @@ body {
   border-radius: 16px;
   background: #ffffff;
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .table-toolbar {
@@ -155,8 +165,27 @@ body {
   color: #1e293b;
 }
 
-.car-table .ant-table {
-  border-radius: 0;
+.car-table {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.car-table .ant-spin-nested-loading,
+.car-table .ant-spin-container,
+.car-table .ant-table,
+.car-table .ant-table-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.car-table .ant-table-body {
+  flex: 1;
+  overflow-y: auto !important;
+  min-height: 0;
 }
 
 .car-table .ant-table-thead > tr > th {
